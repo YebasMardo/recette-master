@@ -15,14 +15,14 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url('home') }}">MonSite</a>
+                <a class="navbar-brand" href="{{ path('home') }}">MonSite</a>
                 <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                    <a class="nav-link {{ app.current_route == 'home' ? 'active' : ''}}" href="{{ url('home') }}">Accueil</a>
+                    <a class="nav-link {{ app.current_route == 'home' ? 'active' : ''}}" href="{{ path('home') }}">Accueil</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link {{ app.current_route starts with 'recipe.' ? 'active' : '' }}" href="{{ url('recipe.index') }}">Recette</a>
+                    <a class="nav-link {{ app.current_route starts with 'recipe.' ? 'active' : '' }}" href="{{ path('recipe.index') }}">Recette</a>
                     </li>
                 </ul>
                 </div>
@@ -30,7 +30,7 @@
         </nav>
 
         <div class="container my-4">
-
+            {% include 'partials/flash.html.twig' %}
             {% block body %}{% endblock %}
         </div>
     </body>
