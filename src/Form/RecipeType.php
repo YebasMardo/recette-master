@@ -20,11 +20,15 @@ class RecipeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
-            ->add('slug', TextType::class, [
-                'required' => false
+            ->add('title', TextType::class, [
+                'empty_data' => ''
             ])
-            ->add('content')
+            ->add('slug', TextType::class, [
+                'required' => false,
+            ])
+            ->add('content', TextType::class, [
+                'empty_data' => ''
+            ])
             ->add('duration')
             ->add('save', SubmitType::class, [
                 'label' => 'Envoyer'
