@@ -1,9 +1,9 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title "Categories" %}
+{% block title "Recettes" %}
 
 {% block body %}    
-    <a class="btn btn-success" href="{{ path('admin.category.create') }}">Créer une recette</a>
+    <a class="btn btn-success" href="{{ path('admin.category.create') }}">Créer une catégorie</a>
     <table class="table">
         <thead>
             <tr>
@@ -12,10 +12,10 @@
             </tr>
         </thead>
         <tbody>
-        {% for category in recipes %}
+        {% for category in categories %}
             <tr>
                 <td>
-                    <a href="{{path('admin.category.edit', {id: category.id})}}">{{ category.title }}</a>
+                    <a href="{{path('admin.category.edit', {id: category.id})}}">{{ category.name }}</a>
                 </td>
                 <td>
                     <div class="d-flex gap-1">
