@@ -6,5 +6,9 @@
     <h1>
         {{ recipe.title }}
     </h1>
+
+    <p>
+        <img src="{{ vich_uploader_asset(recipe, 'thumbnailFile') }}" alt="{{ recipe.title }}" width="300px">
+    </p>
     {{form(form)}}
 {% endblock %}
