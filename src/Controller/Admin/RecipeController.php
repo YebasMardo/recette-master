@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Recipe;
 use App\Form\RecipeType;
+use App\Repository\CategoryRepository;
 use App\Repository\RecipeRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,9 +18,9 @@ use Symfony\Component\Routing\Requirement\Requirement;
 final class RecipeController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(Request $request, RecipeRepository $recipeRepository, EntityManagerInterface $em): Response
+    public function index(Request $request, RecipeRepository $recipeRepository, CategoryRepository $categoryRepository, EntityManagerInterface $em): Response
     {
-        $recipes = $recipeRepository->findAll();
+        $recipes = $recipeRepository->findWithDurationLowerThan(60);
         return $this->render('admin/recipe/index.html.twig', [
             'recipes' => $recipes
         ]);
@@ -49,7 +50,7 @@ final class RecipeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
             $this->addFlash('success', 'La recette a bien été modifiée');
-            return $this->redirectToRoute('recipe.index');
+            return $this->redirectToRoute('admin.recipe.index');
         }
         return $this->render('admin/recipe/edit.html.twig', [
             'form' => $form,
