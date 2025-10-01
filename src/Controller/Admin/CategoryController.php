@@ -9,8 +9,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route("/admin/categories", "admin.category.")]
+#[IsGranted('ROLE_ADMIN')]
 final class CategoryController extends AbstractController {
 
     #[Route("/", "index")]
