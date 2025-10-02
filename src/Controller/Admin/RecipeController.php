@@ -23,7 +23,9 @@ final class RecipeController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(Request $request, RecipeRepository $recipeRepository, CategoryRepository $categoryRepository, EntityManagerInterface $em): Response
     {
-        $recipes = $recipeRepository->findWithDurationLowerThan(60);
+        $page = $request->query->getInt('page', 1);
+        $limit = 2;
+        $recipes = $recipeRepository->paginatedRecipes($page);
         return $this->render('admin/recipe/index.html.twig', [
             'recipes' => $recipes
         ]);
