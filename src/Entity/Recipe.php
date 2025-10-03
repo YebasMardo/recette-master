@@ -8,6 +8,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Image;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -21,20 +22,24 @@ class Recipe
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['recipes.index'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(min : 5)]
     #[BanWord()]
+    #[Groups(['recipes.index', 'recipes.create'])]
     private string $title = '';
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(min : 5)]
     #[Assert\Regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', 'Ce slug est invalid')]
+    #[Groups(['recipes.index', 'recipes.create'])]
     private string $slug = '';
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min : 5)]
+    #[Groups(['recipes.show', 'recipes.create'])]
     private string $content = '';
 
     #[ORM\Column]
@@ -47,9 +52,11 @@ class Recipe
     #[Assert\NotBlank()]
     #[Assert\Positive()]
     #[Assert\LessThan(value: 1440)]
+    #[Groups(['recipes.index', 'recipes.create'])]
     private ?int $duration = null;
 
     #[ORM\ManyToOne(inversedBy: 'recipes', cascade: ['persist'])]
+    #[Groups(['recipes.show'])]
     private ?Category $category = null;
 
     #[ORM\Column(length: 255, nullable: true)]
